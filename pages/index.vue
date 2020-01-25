@@ -1,39 +1,24 @@
 <template>
   <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        nuxt-blog-markdown
-      </h1>
-      <h2 class="subtitle">
-        Personal Blog with Nuxt &amp; Markdown
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
+    <div v-for="post in posts" :key="post.attributes.title">
+      <h2>{{ post.attributes.title }}</h2>
+      <h3>{{ post.attributes.date }}</h3>
+      <p>{{ post.attributes.excerpt }}</p>
+      <nuxt-link :to="'/blog/' + post.attributes.path">
+        Continuar leyendo
+      </nuxt-link>
     </div>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
 export default {
-  components: {
-    Logo
+  async asyncData () {
+    const context = await require.context('~/content/blog', true, /\.md$/)
+    const posts = context.keys().map((key) => context(key))
+    return {
+      posts: posts
+    }
   }
 }
 </script>
@@ -43,6 +28,7 @@ export default {
   margin: 0 auto;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
