@@ -14,16 +14,13 @@
 <script>
   export default {
     async asyncData({ params }) {
-      const resolve = await require.context('~/content/blog/', true, /\.md$/)
-      let imports = resolve.keys().map((key) => resolve(key))
-      // filter out page type
-      imports = imports.filter((post) => !post.attributes.type)
-      imports = imports.filter(
+      const context = await require.context('~/content/blog/', true, /\.md$/)
+      let posts = context.keys().map((key) => resolve(key))
+      posts = posts.filter(
         (post) => post.attributes.tags.filter((tag) => tag === params.slug).length
       )
-      console.log(imports)
       return {
-        posts: imports
+        posts: posts
       }
     },
   }
