@@ -25,11 +25,10 @@ export default {
 
 <style>
 .container {
-  margin: 0 auto;
+  margin: 3rem auto;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   text-align: center;
 }
