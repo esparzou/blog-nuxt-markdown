@@ -1,11 +1,5 @@
 <template>
   <div>
-    <span v-for="(tag, index) in tags" :key="index">
-
-      <nuxt-link :to="'/tag/' + tag">
-        {{ tag }}
-      </nuxt-link>
-    </span>
     <div v-html="html"></div>
   </div>
 </template>
